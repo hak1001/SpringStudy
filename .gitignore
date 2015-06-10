@@ -1,5 +1,8 @@
 *.class
+<<<<<<< HEAD
 
 /.settings/
+=======
+>>>>>>> refs/heads/SpringStudy
 /SpringWorkspace/
 /target/
