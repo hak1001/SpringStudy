@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.context.support.StaticApplicationContext;
 
 import springbook.learningtest.spring.ioc.bean.Hello;
@@ -44,6 +47,32 @@ public class ApplicationContextTest {
 		helloDef.getPropertyValues().addPropertyValue("printer", new RuntimeBeanReference("printer"));
 		
 		ac.registerBeanDefinition("hello", helloDef);
+		
+		Hello hello = ac.getBean("hello", Hello.class);
+		hello.print();
+		
+		assertThat(ac.getBean("printer").toString(), is("Hello Spring"));
+	}
+	
+	@Test
+	public void genericApplicationContext(){
+		GenericApplicationContext ac = new GenericApplicationContext();
+		
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(ac);
+		reader.loadBeanDefinitions("springbook/learningtest/spring/ioc/genericApplicationContext.xml");
+		
+		//	모든 메타정보가 등록이 완료됐으니 애플리케이션 컨테이너를 초기화하는 명령어
+		ac.refresh();
+	
+		Hello hello = ac.getBean("hello", Hello.class);
+		hello.print();
+		
+		assertThat(ac.getBean("printer").toString(), is("Hello Spring"));
+	}
+	
+	@Test
+	public void genericXmlApplicationContext(){
+		GenericApplicationContext ac = new GenericXmlApplicationContext("springbook/learningtest/spring/ioc/genericApplicationContext.xml");
 		
 		Hello hello = ac.getBean("hello", Hello.class);
 		hello.print();
