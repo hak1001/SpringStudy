@@ -5,18 +5,19 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.mockito.internal.matchers.NotNull;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
+import springbook.learningtest.spring.ioc.bean.AnnotatedHello;
 import springbook.learningtest.spring.ioc.bean.Hello;
 import springbook.learningtest.spring.ioc.bean.Printer;
 import springbook.learningtest.spring.ioc.bean.StringPrinter;
@@ -104,4 +105,12 @@ public class ApplicationContextTest {
 		assertThat(printer.toString(), is("Hello Child"));
 	}
 	
+	@Test
+	public void simpleBeanScanning(){
+		// @Component가 붙은 클래스를 스캔할 패키지를 넣어서 컨텍스트를 생성. 생성과 동시에 자동으로 스캔과 등록이 진행.
+		ApplicationContext ctx = new AnnotationConfigApplicationContext("springbook.learningtest.spring.ioc.bean");
+		AnnotatedHello hello = ctx.getBean("annotatedHello", AnnotatedHello.class);
+		
+		assertThat(hello, is(notNullValue()));
+	}
 }
