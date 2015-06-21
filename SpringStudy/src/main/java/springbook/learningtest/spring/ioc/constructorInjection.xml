@@ -9,8 +9,8 @@
 		<constructor-arg index="1" ref="printer" />
 		
 		  -->
-		<constructor-arg type="java.lang.String" value="Spring" />
-		<constructor-arg type="springbook.learningtest.spring.ioc.bean.Printer" ref="printer" />
+		<!-- <constructor-arg type="java.lang.String" value="Spring" />
+		<constructor-arg type="springbook.learningtest.spring.ioc.bean.Printer" ref="printer" /> -->
 		
 		<constructor-arg name="name" value="Spring" />
 		<constructor-arg name="printer" ref="printer" />

@@ -138,4 +138,14 @@ public class ApplicationContextTest {
 		
 		assertThat(ac.getBean("printer").toString(), is("Hello Spring"));
 	}
+	
+	@Test
+	public void autowire(){
+		ApplicationContext ac = new GenericXmlApplicationContext(basePath + "autowire.xml");
+		
+		Hello hello = ac.getBean("hello", Hello.class);
+		hello.print();
+		
+		assertThat(ac.getBean("printer").toString(), is("Hello Spring"));
+	}
 }
