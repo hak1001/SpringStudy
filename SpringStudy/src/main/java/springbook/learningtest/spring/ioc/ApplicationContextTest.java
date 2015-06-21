@@ -128,4 +128,14 @@ public class ApplicationContextTest {
 		assertThat(config.annotatedHello(), is(sameInstance(hello)));
 		
 	}
+	
+	@Test
+	public void constructorArgName() {
+		ApplicationContext ac = new GenericXmlApplicationContext(basePath + "constructorInjection.xml");
+		
+		Hello hello = ac.getBean("hello", Hello.class);
+		hello.print();
+		
+		assertThat(ac.getBean("printer").toString(), is("Hello Spring"));
+	}
 }
